@@ -1,0 +1,21 @@
+  {{$secretroot := env "SECRET_ROOT"}}
+  {{with secret (printf "%s" $secretroot)}}
+  {
+    "environment": "{{.Data.environment}}",
+    "memsql": 
+        {
+            "host": "{{.Data.memsql.host}}",
+            "user": "{{.Data.memsql.user}}",
+            "password": "{{.Data.memsql.password}}",
+            "database": "{{.Data.memsql.database}}"
+            
+        },
+    "web":
+        {
+            "user": "{{.Data.web.user}}",
+            "password": "{{.Data.web.password}}",
+            "baseURL": "{{.Data.web.baseURL}}",
+            "allItems": "{{.Data.web.allItems}}"
+        }
+  }
+  {{end}}

@@ -1,0 +1,24 @@
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: ${ORG}-${REPO}-${ENV}-podpreset
+  namespace: ${ORG}-default
+spec:
+  selector:
+    matchLabels:
+      role: ${ORG}-${REPO}-${ENV}
+  volumeMounts:
+    - name: secret-volume
+      readOnly: true
+      mountPath: /var/run
+    - name: logs-volume
+      readOnly: false
+      mountPath: /var/log/gup
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: ${ORG}-${REPO}-${ENV}-secret
+    - name: logs-volume
+      nfs:
+        server: ${SITE}netapp10
+        path: /${SITE}_projects_shared/auth/jenkins/${ORG}/${REPO}/${ENV}/logs
