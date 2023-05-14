@@ -1,1 +1,1 @@
-# wardini-scraper
+# AI Image Recognition
